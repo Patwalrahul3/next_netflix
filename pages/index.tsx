@@ -1,30 +1,30 @@
+import Billboard from "@/components/BillBoard";
 import Navbar from "@/components/Navbar";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 
-export async function getServerSideProps(context: NextPageContext){
+export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
 
-  if(!session){
+  if (!session) {
     return {
       redirect: {
-        destination: '/auth',
-        permanent: false
-      }
-    }
+        destination: "/auth",
+        permanent: false,
+      },
+    };
   }
-  
-  return {
-    props:{}
-  }
-}
 
+  return {
+    props: {},
+  };
+}
 
 export default function Home() {
   return (
     <>
-   <Navbar />
+      <Navbar />
+      <Billboard />
     </>
- 
-  )
+  );
 }
