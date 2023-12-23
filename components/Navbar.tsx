@@ -1,12 +1,28 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import NavbarItem from "./NavbarItem";
 import { BsChevronDown, BsSearch, BsBell } from "react-icons/bs";
 import MobileMenu from "./MobileMenu";
 import AccountMenu from "./AccountMenu";
 
+const Top_OFFSET = 66;
+
 const Navbar = () => {
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showBackground, setShowBackground] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log(window.scrollY);
+
+      if (window.scrollY >= Top_OFFSET) {
+        setShowBackground(true);
+      } else {
+        setShowBackground(false);
+      }
+      window.addEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const toogleAccountMenu = useCallback(() => {
     setShowAccountMenu((current) => !current);
@@ -20,16 +36,7 @@ const Navbar = () => {
     <nav className="w-full fixed z-40">
       <div
         className="
-    px-4
-    md:px-16
-    py-6
-    flex
-    flex-row
-    items-center
-    transition
-    duration-500
-    bg-zinc-900
-    bg-opacity-90
+        className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}
     "
       >
         <img className="h-4 lg:h-7" src="/images/logo.png" alt="logo" />
@@ -73,7 +80,10 @@ const Navbar = () => {
             <BsBell />
           </div>
 
-          <div  onClick={toogleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
+          <div
+            onClick={toogleAccountMenu}
+            className="flex flex-row items-center gap-2 cursor-pointer relative"
+          >
             <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
               <img src="/images/default-blue.png" alt="im" />
             </div>

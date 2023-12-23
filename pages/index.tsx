@@ -1,4 +1,5 @@
-import Billboard from "@/components/BillBoard";
+
+import Billboard from "@/components/Billboard";
 import Navbar from "@/components/Navbar";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
